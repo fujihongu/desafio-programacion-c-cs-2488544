@@ -1,14 +1,12 @@
 # Desafío de programación: C
 
-Este es el repositorio del curso de LinkedIn Learning `[Desafío de programación: C]`. El curso completo está disponible en [LinkedIn Learning][lil-course-url].
+Este es el repositorio del curso de LinkedIn Learning `[Desafío de programación: C]` de **Flaviu E. Hongu (aka Noriel Sylvre)**. El curso completo está disponible en [LinkedIn Learning][lil-course-url].
 
 ![image](https://user-images.githubusercontent.com/71371373/211757102-69abeb6a-e3af-4dcb-b953-54039078de35.png)
 
-Consulta el archivo Readme en la rama main para obtener instrucciones e información actualizadas.
+Consulta el archivo Readme en la rama main para obtener las instrucciones del desafío e información actualizada.
 
-Este curso te presenta un reto para amplificar tus habilidades de programación en C. Como sabes, la práctica hace maestros, especialmente cuando se trata del desarrollo de aplicaciones. En este contenido práctico implementarás un sistema que permitirá al usuario o usuaria de nuestra aplicación notificar manualmente errores producidos durante su jornada de trabajo. Además, el histórico de errores se almacenará en logs diarios. Agarra tu teclado y prepárate. ¡Empezamos!
-
-Este curso está integrado con GitHub Codespaces, un entorno de desarrollo instantáneo alojado en la nube que ofrece toda la funcionalidad de tu IDE favorito sin tener que configurar una máquina local. Con Codespaces puedes practicar en cualquier lugar y desde cualquier dispositivo, de modo que no necesitas instalar ninguna otra herramienta. Aprende a dar los primeros pasos con el vídeo “Cómo usar GitHub Codespaces con este curso”.
+Debajo ha una copia de las instrucciones del desafío. Para obtener la versión más actualizada te invito a hacer click en el enlace de arriba.
 
 ## Instrucciones
 
@@ -19,11 +17,17 @@ Este curso está integrado con GitHub Codespaces, un entorno de desarrollo insta
 2. Clona este repositorio en tu ordenador local usando la terminal (macOS), CMD (Windows), o una herramienta GUI como SourceTree.
 3. Este curso ha sido grabado utilizando macOS. Si utilizas otro sistema operativo es posible que algunas instrucciones empleadas, archivos de configuración o directivas de compilación no se apliquen de la misma manera, y sea necesario localizar la forma de trabajo equivalente para dicho sistema operativo.
 
+## Mi planteamiento
+
+He decidido seguir una estructura de comandos para este proyecto: el programa entra en un bucle que solo acaba cuando el usuario lo solicita. En cada repetición del bucle se presenta al usuario con una información, y unas opciones de acciones que puede realizar. Cuando el usuario escoge una acción, esta se ejecuta, la terminal se limpia, y, si la acción solicitada no es salir del programa, el bucle se repite.
+
 ## Ramas
 
-Las ramas están estructuradas para corresponder a los vídeos del curso. Por ejemplo, la rama denominada `02` corresponde al segundo video. Algunas ramas tendrán un estado inicial y otro final. Están marcadas con las letras i («inicio») y f («fin»). La branch i tiene el mismo código que al principio del vídeo. La branch f tiene el mismo código que al final del vídeo. La rama master tiene el estado final del código que aparece en el curso.
+El docente del desafío nos ha facilitado dos ramas por vídeo; una con el código al inicio del vídeo y otra con el código al final.
 
-Este curso está integrado con GitHub Codespaces, un entorno de desarrollo instantáneo alojado en la nube que ofrece toda la funcionalidad de tu IDE favorito sin tener que configurar una máquina local. Con Codespaces puedes practicar en cualquier lugar y desde cualquier dispositivo, de modo que no necesitas instalar ninguna otra herramienta.
+Yo, en cambio mantendré todo el código en una misma rama, sin ninguna clase de ramificaciones para simplifcar el seguimiento de la evolución de mi repositorio.
+
+Es decir, al finalizar este desafío, el repositorio debería contener el código completo y funcional, listo para ser compilado y ejecutado, y un historial de commits con cada cambio.
 
 ### Docente
 
@@ -36,3 +40,4 @@ Echa un vistazo a mis otros cursos en [LinkedIn Learning](https://www.linkedin.c
 [lil-thumbnail-url]: https://cdn.lynda.com/course/2875095/2875095-1615224395432-16x9.jpg
 
 [1]: # (End of ES-Instruction ###############################################################################################)
+
