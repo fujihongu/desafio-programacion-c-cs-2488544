@@ -34,7 +34,7 @@ int main(void)
 
 void get_id(void)
 {
-  printf("Please input your operator ID:\n");
+  printf("Please input your operator ID: ");
   scanf("%d", (int *)&op_id);
   getchar();
   printf("Operator Flaviu Emanuel Hongu with ID %d identified.\nProceeding with the initialization.\n", (int)op_id);
@@ -52,7 +52,7 @@ void get_date(void)
     printf("Current date: %s\n", current_date);
   }
   else
-    printf("Error.\n");
+    printf("Date Error.\n");
 }
 
 void logger(void)
@@ -78,7 +78,6 @@ void show_menu(void)
   printf("3. Delete today's error history\n");
   printf("0. Exit\n");
   printf("\nPrompt: ");
-  printf("\n");
 }
 
 void show_info(void)
@@ -96,6 +95,7 @@ int grab_command(void)
   scanf("%s", command);
   getchar();
   cmd_nbr = atoi(command);
+  printf("\n");
   if (strlen(command) == 1 && *command == '0')
     return (execute_command(0));
   else if (cmd_nbr != 0)
@@ -104,6 +104,9 @@ int grab_command(void)
   }
   else
     printf("Invalid action number or command.\nPlease, input a valid action.\n");
+  printf("Press enter to continue.\n");
+  getchar();
+  system("clear");
   return (0);
 }
 
@@ -136,7 +139,7 @@ void show_end_info(void)
   printf("Exiting session 'Flaviu Emanuel Hongu'...\n\n");
   printf(version_text);
   printf("\n");
-  printf("Press enter to exit program.");
+  printf("Press enter to exit program.\n");
   getchar();
   system("clear");
 }
