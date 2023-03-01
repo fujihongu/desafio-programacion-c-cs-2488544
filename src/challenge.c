@@ -6,30 +6,44 @@ Platform: LinkedIn Learning, thanks to Fujitsu*/
 #include <string.h>
 #include <time.h>
 
+// Sout: show date on the standard output. Fout: use date for file output.
+enum t_datemode
+{
+  sout,
+  fout
+};
+
 static const char version_text[50] = "Error Logger C Challenge Version 0";
 char current_date[15];
 unsigned short int op_id;
 
+void init_text(void);
 void get_id(void);
-void get_date(void);
 void logger(void);
 void show_info(void);
 void show_menu(void);
 void show_end_info(void);
+int get_date(enum t_datemode dmode);
 int grab_command(void);
 int execute_command(int cmd_nbr);
+int generate_log(void);
 
 int main(void)
 {
+  init_text();
+  logger();
+  return (0);
+}
+
+void init_text(void)
+{
   system("clear");
   printf("Initializing logging manager.\nDetecting current date...\n");
-  get_date();
+  get_date(sout);
   get_id();
   printf("Press enter to start.\n");
   getchar();
   system("clear");
-  logger();
-  return (0);
 }
 
 void get_id(void)
@@ -40,19 +54,36 @@ void get_id(void)
   printf("Operator Flaviu Emanuel Hongu with ID %d identified.\nProceeding with the initialization.\n", (int)op_id);
 }
 
-void get_date(void)
+int get_date(enum t_datemode dmode)
 {
+  FILE *logfile;
+  int file_created;
   time_t current_time;
   struct tm local_time;
 
+  file_created = 0;
   current_time = time(NULL);
   local_time = *localtime(&current_time);
   if (strftime(current_date, sizeof(current_date), "%Y-%m-%d", &local_time) != 0)
   {
-    printf("Current date: %s\n", current_date);
+    if (dmode == sout)
+    {
+      printf("Current date: %s\n", current_date);
+      return (1);
+    }
+    else
+    {
+      char *logname = strcat(current_date, ".log");
+      printf("Creating log file %s...\n", logname);
+      logfile = fopen(logname, "a");
+      // Fill it in with stuff
+      fclose(logfile);
+      file_created = 1;
+    }
   }
   else
     printf("Date Error.\n");
+  return (file_created);
 }
 
 void logger(void)
@@ -118,7 +149,10 @@ int execute_command(int cmd_nbr)
     printf("You logged an error.\n");
     break;
   case 2:
-    printf("This is today's error history:\nnull\n");
+    if (generate_log())
+      printf("Log generated successfully.\n");
+    else
+      printf("Ran into an error while attempting to create logfile.\n");
     break;
   case 3:
     printf("For some reason you deleted today's error history.\nMaybe I just misinterpreted the instructions?\n");
@@ -142,4 +176,10 @@ void show_end_info(void)
   printf("Press enter to exit program.\n");
   getchar();
   system("clear");
+}
+
+int generate_log(void)
+{
+  printf("Logging today's error history...\n");
+  return (get_date(fout));
 }
