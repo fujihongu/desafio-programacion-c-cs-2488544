@@ -7,7 +7,7 @@ Platform: LinkedIn Learning, thanks to Fujitsu*/
 int main(void)
 {
   t_info info;
-  info.version_text = "Error Logger C Challenge Version 0";
+  info.version_text = "Error Logger C Challenge Version 0.1\n";
   init_text(&info);
   logger(info);
   return (0);
