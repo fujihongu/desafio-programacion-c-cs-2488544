@@ -43,19 +43,41 @@ int grab_command(t_info info)
 
 int execute_command(t_info info, int cmd_nbr)
 {
+  char *decision = malloc(sizeof(char) * 5);
   switch (cmd_nbr)
   {
   case 1:
-    printf("You logged an error.\n");
+    log_error(info.op_id, info);
     break;
   case 2:
     if (generate_log(info))
-      printf("Log generated successfully.\n");
+      printf("Error log generated successfully.\n");
     else
       printf("Ran into an error while attempting to create logfile.\n");
     break;
   case 3:
-    printf("For some reason you deleted today's error history.\nMaybe I just misinterpreted the instructions?\n");
+    printf("This action is irreversible. Please, confirm. (y/n) ");
+    while (1)
+    {
+      scanf("%s", decision);
+      decision = strlwr(decision);
+      if (*decision == 'y')
+      {
+        del_log(info);
+        break;
+      }
+      else if (*decision == 'n')
+      {
+        break;
+      }
+      else
+      {
+        printf("Please, either type (y)es or (n)o.\n");
+        printf("Deleting today's log is irreversible. Please, confirm (y/n) ");
+      }
+    }
+    getchar();
+    free(decision);
     break;
   case 0:
     return (1);

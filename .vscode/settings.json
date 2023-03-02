@@ -25,7 +25,9 @@
     "string.h": "c",
     "info.h": "c",
     "logger.h": "c",
-    "gen_log.h": "c"
+    "gen_log.h": "c",
+    "log_error.h": "c",
+    "del_log.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

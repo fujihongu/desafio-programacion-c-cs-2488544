@@ -1,38 +1,26 @@
 CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 LD = gcc
 RM = rm -f
 CLR = clear
 PRMMSG = echo "Program removed successfully:"
 PIMSG = echo "Prgram installed successfully:"
 LS = ls -la
-PROGRAM = challengeBin
+PROGRAM_NAME = challengeBin
+SRCS = challenge.c */*.c
 OBJECTS = *.o
 
-all: utils.o logic.o cmds.o main.o make clean clear ls
+default: .c.o make clean
+	$(CLR); $(LS)
 
-utils.o:
-	$(CC) -c utils/info.c -o utils.o
-
-cmds.o:
-	$(CC) -c cmds/gen_log.c -o cmds.o
-
-logic.o:
-	$(CC) -c logic/logger.c -o logic.o
-
-main.o:
-	$(CC) -c challenge.c -o main.o
+.c.o:
+	$(CC) $(CFLAGS) -c $(SRCS)
 
 make:
-	$(LD) $(OBJECTS) -o $(PROGRAM)
+	$(LD) $(OBJECTS) -o $(PROGRAM_NAME)
 
 clean:
 	$(RM) $(OBJECTS)
 
 fclean: clean
-	$(RM) $(PROGRAM); $(CLR); $(LS)
-
-ls:
-	$(LS)
-
-clear:
-	$(CLR)
+	$(RM) $(PROGRAM_NAME); $(CLR); $(LS)

@@ -21,5 +21,6 @@ void get_id(t_info *info);
 void show_info(t_info info);
 void show_menu(void);
 void show_end_info(t_info info);
+char *strlwr(char *str);
 
 #endif

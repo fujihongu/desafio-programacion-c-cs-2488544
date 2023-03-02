@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <sys/stat.h>
 #include "../../lib/info.h"
 
 void init_text(t_info *info)
@@ -21,8 +22,9 @@ int get_date(t_info *info, enum t_datemode dmode)
   int file_created;
   time_t current_time;
   struct tm local_time;
+  char full_date[100];
 
-  printf("\nDetecting current date...\n");
+  printf("\nCalculating current date...\n");
   file_created = 0;
   current_time = time(NULL);
   local_time = *localtime(&current_time);
@@ -30,16 +32,35 @@ int get_date(t_info *info, enum t_datemode dmode)
   {
     if (dmode == sout)
     {
-      printf("Current date: %s\n\n", info->current_date);
+      strftime(full_date, sizeof(full_date), "%c", &local_time);
+      printf("Current date: %s\n\n", full_date);
       return (1);
     }
     else
     {
       char *logname = strcat(info->current_date, ".log");
-      printf("Creating log file %s...\n", logname);
-      logfile = fopen(logname, "a");
-      // Fill it in with stuff?
-      fclose(logfile);
+      logfile = fopen(logname, "a+");
+      struct stat st;
+      stat(logname, &st);
+      if (st.st_size == 0)
+      {
+        strftime(full_date, sizeof(full_date), "%c", &local_time);
+        printf("Creating log file %s...\n", logname);
+        fprintf(logfile, "Error-log for %s.\n", full_date);
+        fclose(logfile);
+      }
+      else
+      {
+        printf("Existing log file found: %s\nPrinting contents:\n\n", logname);
+        char c = fgetc(logfile);
+        while (c != EOF)
+        {
+          printf("%c", c);
+          c = fgetc(logfile);
+        }
+        printf("\n\n");
+        fclose(logfile);
+      }
       file_created = 1;
     }
   }
@@ -83,4 +104,18 @@ void show_end_info(t_info info)
   printf("Press enter to exit program.\n");
   getchar();
   system("clear");
+}
+
+char *strlwr(char *str)
+{
+  char *copy;
+
+  copy = str;
+  while (*copy)
+  {
+    if (*copy >= 'A' && *copy <= 'Z')
+      *copy = *copy + ('a' - 'A');
+    copy++;
+  }
+  return (str);
 }
