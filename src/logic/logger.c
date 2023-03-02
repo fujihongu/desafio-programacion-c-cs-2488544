@@ -1,21 +1,24 @@
-#include "logger.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "../../lib/logger.h"
 
-void logger(void)
+void logger(t_info info)
 {
   int exit;
 
   exit = 0;
   while (!exit)
   {
-    show_info();
+    show_info(info);
     show_menu();
-    exit = grab_command();
+    exit = grab_command(info);
   }
   system("clear");
-  show_end_info();
+  show_end_info(info);
 }
 
-int grab_command(void)
+int grab_command(t_info info)
 {
   char command[15];
   int cmd_nbr;
@@ -25,10 +28,10 @@ int grab_command(void)
   cmd_nbr = atoi(command);
   printf("\n");
   if (strlen(command) == 1 && *command == '0')
-    return (execute_command(0));
+    return (execute_command(info, 0));
   else if (cmd_nbr != 0)
   {
-    return (execute_command(cmd_nbr));
+    return (execute_command(info, cmd_nbr));
   }
   else
     printf("Invalid action number or command.\nPlease, input a valid action.\n");
@@ -38,7 +41,7 @@ int grab_command(void)
   return (0);
 }
 
-int execute_command(int cmd_nbr)
+int execute_command(t_info info, int cmd_nbr)
 {
   switch (cmd_nbr)
   {
@@ -46,7 +49,7 @@ int execute_command(int cmd_nbr)
     printf("You logged an error.\n");
     break;
   case 2:
-    if (generate_log())
+    if (generate_log(info))
       printf("Log generated successfully.\n");
     else
       printf("Ran into an error while attempting to create logfile.\n");

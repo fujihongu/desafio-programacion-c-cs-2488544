@@ -1,22 +1,61 @@
-#include "info.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+#include "../../lib/info.h"
 
-void init_text(void)
+void init_text(t_info *info)
 {
   system("clear");
   printf("Initializing logging manager.\nDetecting current date...\n");
-  get_date(sout);
-  get_id();
+  get_date(*info, sout);
+  get_id(info);
   printf("Press enter to start.\n");
   getchar();
   system("clear");
+  printf("hey you, don't do a seggy");
 }
 
-void get_id(void)
+int get_date(t_info info, enum t_datemode dmode)
 {
+  FILE *logfile;
+  int file_created;
+  time_t current_time;
+  struct tm local_time;
+
+  file_created = 0;
+  current_time = time(NULL);
+  local_time = *localtime(&current_time);
+  if (strftime(info.current_date, sizeof(info.current_date), "%Y-%m-%d", &local_time) != 0)
+  {
+    if (dmode == sout)
+    {
+      printf("Current date: %s\n", info.current_date);
+      return (1);
+    }
+    else
+    {
+      char *logname = strcat(info.current_date, ".log");
+      printf("Creating log file %s...\n", logname);
+      logfile = fopen(logname, "a");
+      // Fill it in with stuff
+      fclose(logfile);
+      file_created = 1;
+    }
+  }
+  else
+    printf("Date Error.\n");
+  return (file_created);
+}
+
+void get_id(t_info *info)
+{
+  unsigned short int id;
   printf("Please input your operator ID: ");
-  scanf("%d", (int *)&op_id);
+  scanf("%d", (int *)&id);
+  info->op_id = id;
   getchar();
-  printf("Operator Flaviu Emanuel Hongu with ID %d identified.\nProceeding with the initialization.\n", (int)op_id);
+  printf("Operator Flaviu Emanuel Hongu with ID %d identified.\nProceeding with the initialization.\n", (int)info->op_id);
 }
 
 void show_menu(void)
@@ -29,17 +68,17 @@ void show_menu(void)
   printf("\nPrompt: ");
 }
 
-void show_info(void)
+void show_info(t_info info)
 {
-  printf(version_text);
+  printf(info.version_text);
   printf("\n");
-  printf("Operator ID: %d\nDate: %s\n", op_id, current_date);
+  printf("Operator ID: %d\nDate: %s\n", info.op_id, info.current_date);
 }
 
-void show_end_info(void)
+void show_end_info(t_info info)
 {
   printf("Exiting session 'Flaviu Emanuel Hongu'...\n\n");
-  printf(version_text);
+  printf(info.version_text);
   printf("\n");
   printf("Press enter to exit program.\n");
   getchar();
