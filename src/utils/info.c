@@ -7,35 +7,35 @@
 void init_text(t_info *info)
 {
   system("clear");
-  printf("Initializing logging manager.\nDetecting current date...\n");
-  get_date(*info, sout);
+  printf("Initializing logging manager.\n");
+  get_date(info, sout);
   get_id(info);
   printf("Press enter to start.\n");
   getchar();
   system("clear");
-  printf("hey you, don't do a seggy");
 }
 
-int get_date(t_info info, enum t_datemode dmode)
+int get_date(t_info *info, enum t_datemode dmode)
 {
   FILE *logfile;
   int file_created;
   time_t current_time;
   struct tm local_time;
 
+  prinf("\nDetecting current date...\n");
   file_created = 0;
   current_time = time(NULL);
   local_time = *localtime(&current_time);
-  if (strftime(info.current_date, sizeof(info.current_date), "%Y-%m-%d", &local_time) != 0)
+  if (strftime(info->current_date, sizeof(info->current_date), "%Y-%m-%d", &local_time) != 0)
   {
     if (dmode == sout)
     {
-      printf("Current date: %s\n", info.current_date);
+      printf("Current date: %s\n", info->current_date);
       return (1);
     }
     else
     {
-      char *logname = strcat(info.current_date, ".log");
+      char *logname = strcat(info->current_date, ".log");
       printf("Creating log file %s...\n", logname);
       logfile = fopen(logname, "a");
       // Fill it in with stuff
@@ -52,7 +52,7 @@ void get_id(t_info *info)
 {
   unsigned short int id;
   printf("Please input your operator ID: ");
-  scanf("%d", (int *)&id);
+  scanf("%hu", &id);
   info->op_id = id;
   getchar();
   printf("Operator Flaviu Emanuel Hongu with ID %d identified.\nProceeding with the initialization.\n", (int)info->op_id);

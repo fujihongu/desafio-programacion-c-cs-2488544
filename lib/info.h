@@ -16,7 +16,7 @@ enum t_datemode
 };
 
 void init_text(t_info *info);
-int get_date(t_info info, enum t_datemode dmode);
+int get_date(t_info *info, enum t_datemode dmode);
 void get_id(t_info *info);
 void show_info(t_info info);
 void show_menu(void);
