@@ -3,6 +3,6 @@ node_modules
 .tmp
 npm-debug.log
 *.out
-src/*.log
+src/*.log*
 *.o
 challengeBin
